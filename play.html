@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Putar Film - FilmFlix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/play.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="film-info">
+        <h2 id="film-title">Memuat Film...</h2>
+        <p class="film-meta">
+          <span id="film-year">2025</span> •
+          <span id="film-views">0</span> penonton •
+          <span id="film-genre">Genre</span>
+        </p>
+      </div>
+
+      <div class="video-wrapper">
+        <video id="videoPlayer" controls>
+          <source src="" type="video/mp4" />
+          Browser Anda tidak mendukung pemutar video.
+        </video>
+      </div>
+      <div class="film-extra-info">
+        <p id="film-description">Deskripsi film akan tampil di sini...</p>
+      </div>
+
+      <a href="index.html" class="back-btn">⏪ Kembali ke Beranda</a>
+      <div class="recommendation-section">
+        <h3>Film Serupa</h3>
+        <div class="film-list">
+          <a href="play.html?film=Rumah Punya Cerita" class="film-card">
+            <img src="AssetsFilm/posters/Rumah-Punya-Cerita.jpg" alt="John Wick" />
+            <p>Rumah Punya Cerita</p>
+          </a>
+          <a href="play.html?film=Kita Usahakan Rumah Itu" class="film-card">
+            <img src="AssetsFilm/posters/Kita-Usahakan-Rumah-Itu.jpg" alt="The Conjuring" />
+            <p>Kita Usahakan Rumah Itu</p>
+          </a>
+          <a href="play.html?film=annabelle" class="film-card">
+            <img src="AssetsFilm/posters/john-wick.jpg" alt="Annabelle" />
+            <p>Annabelle</p>
+          </a>
+          <a href="play.html?film=frozen" class="film-card">
+            <img src="AssetsFilm/posters/john-wick.jpg" alt="Frozen" />
+            <p>Frozen</p>
+          </a>
+          <a href="play.html?film=kungfu" class="film-card">
+            <img src="AssetsFilm/posters/john-wick.jpg" alt="Kung Fu Panda" />
+            <p>Kung Fu Panda</p>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const user = localStorage.getItem("loggedInUser");
+      if (!user) {
+        alert("Silakan login terlebih dahulu.");
+        window.location.href = "login.html";
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const film = urlParams.get("film");
+
+      const titleMap = {
+        extraction: "Dunia Ini Memang Keras",
+        "john-wick": "John Wick",
+        conjuring: "The Conjuring",
+        annabelle: "Annabelle",
+        frozen: "Frozen",
+        kungfu: "Kung Fu Panda",
+      };
+
+      if (film) {
+        
+        const title = titleMap[film] || film;
+        document.getElementById("film-title").innerText = title;
+        document.querySelector("#videoPlayer source").src =
+          `AssetsFilm/${film}.mp4`;
+        document.getElementById("videoPlayer").load();
+
+        // Dummy Data
+        document.getElementById("film-year").innerText = "2025";
+        document.getElementById("film-views").innerText = Math.floor(
+          Math.random() * 1000
+        ).toLocaleString();
+        document.getElementById("film-genre").innerText = "Aksi";
+      } else {
+        document.getElementById("film-title").innerText =
+          "Film tidak ditemukan";
+      }
+    </script>
+  </body>
+</html>
